@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "214779840487",
+    "firebase_url": "https://letstrack-3e278.firebaseio.com",
+    "project_id": "letstrack-3e278",
+    "storage_bucket": "letstrack-3e278.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214779840487:android:e5e8b8c01c6fbb32",
+        "android_client_info": {
+          "package_name": "com.example.aranyak.letstrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "214779840487-9ncrfvppklghjjvqrves3ds0lu85u226.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.aranyak.letstrack",
+            "certificate_hash": "c9f8d0ccf50b736a2e7d637119c60a301bb3478c"
+          }
+        },
+        {
+          "client_id": "214779840487-nm2dmgrm1kbtr8v30qpet44nkfbftkt5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-QHtrMSXBZU6SkLI7am8ZV_UDz7dtG7o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "214779840487-nm2dmgrm1kbtr8v30qpet44nkfbftkt5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
