@@ -49,7 +49,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
         mAuth = FirebaseAuth.getInstance();
 
-
+        ButtonRegister.setOnClickListener(this);
     }
 
     private void RegisterUser() {
