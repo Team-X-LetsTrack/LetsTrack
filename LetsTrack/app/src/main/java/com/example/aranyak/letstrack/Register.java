@@ -68,7 +68,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             Toast.makeText(this,"Please enter a password", Toast.LENGTH_SHORT).show();
             return;
         }
-        else if(TextUtils.isEmpty(Confirmpassword)||Confirmpassword!=password) {
+        else if(TextUtils.isEmpty(Confirmpassword)||!Confirmpassword.equals(password)) {
             //Confirm password field is empty
             Toast.makeText(this,"Passwords do not match! Try again", Toast.LENGTH_SHORT).show();
             return;
@@ -78,10 +78,17 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             Toast.makeText(this,"Please enter a contact number", Toast.LENGTH_SHORT).show();
             return;
         }
-        else if(TextUtils.isDigitsOnly(phone)) {
+        else if(!android.util.Patterns.PHONE.matcher(phone).matches()) {
             Toast.makeText(this,"Please enter a valid contact number", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            Toast.makeText(this,"Please enter a valid email ID", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
         ProgressDialog.setMessage("Registering...");
         ProgressDialog.show();
 
@@ -91,6 +98,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
 
+                        ProgressDialog.dismiss();
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
@@ -99,8 +107,19 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                                     Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            Toast.makeText(Register.this, "Registration Failed",
+                            Toast.makeText(Register.this, "Registration Successful",
                                     Toast.LENGTH_SHORT).show();
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                            user.sendEmailVerification()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Log.d(TAG, "Email sent.");
+                                            }
+                                        }
+                                    });
                         }
 
                         // ...
