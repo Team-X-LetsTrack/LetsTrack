@@ -1,15 +1,14 @@
 package com.example.aranyak.letstrack;
 
 import android.app.ProgressDialog;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -53,10 +52,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     }
 
     private void RegisterUser() {
-        String email=EditTextEmail.getText().toString().trim();
-        String password=EditTextPassword.getText().toString().trim();
-        String Confirmpassword=EditTextConfirmPassword.getText().toString().trim();
-        String phone=EditTextPhone.getText().toString().trim();
+        final String email = EditTextEmail.getText().toString().trim();
+        final String password = EditTextPassword.getText().toString().trim();
+        final String Confirmpassword = EditTextConfirmPassword.getText().toString().trim();
+        final String phone = EditTextPhone.getText().toString().trim();
 
         if(TextUtils.isEmpty(email)) {
             //email field is empty
@@ -88,9 +87,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             return;
         }
 
-
+        
         ProgressDialog.setMessage("Registering...");
         ProgressDialog.show();
+
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -107,6 +107,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                                     Toast.LENGTH_SHORT).show();
                         }
                         else {
+                            new User(email, phone);
                             Toast.makeText(Register.this, "Registration Successful",
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -129,9 +130,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        if(v==ButtonRegister)
-        {
-            RegisterUser();
-        }
+        RegisterUser();
     }
 }
