@@ -2,9 +2,9 @@ package com.example.aranyak.letstrack;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +17,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -27,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText EditTextPassword;
 
     private TextView TextViewRegister;
+    private TextView TextViewForgotPassword;
 
     private ProgressDialog ProgressDialog;
 
@@ -39,12 +39,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         ButtonSignIn=(Button) findViewById(R.id.buttonSignIn);
+
         EditTextEmail=(EditText)findViewById(R.id.editTextEmail);
         EditTextPassword=(EditText)findViewById(R.id.editTextPassword);
+
         TextViewRegister=(TextView)findViewById(R.id.textViewSignUp);
+        TextViewForgotPassword = (TextView) findViewById(R.id.textViewForgotPassword);
 
         ButtonSignIn.setOnClickListener(this);
         TextViewRegister.setOnClickListener(this);
+        TextViewForgotPassword.setOnClickListener(this);
 
         ProgressDialog=new ProgressDialog(this);
 
@@ -112,6 +116,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             //Start Register Activity
             startActivity(new Intent(this,Register.class));
+        } else if (view == TextViewForgotPassword) {
+            //start Forgot Password Activity
+            startActivity(new Intent(this, Forgot_Password.class));
         }
     }
 }

@@ -1,14 +1,12 @@
 package com.example.aranyak.letstrack;
 
-import android.os.AsyncTask;
-
 import java.util.ArrayList;
 
 /**
  * Created by arany on 03-Oct-17.
  */
 
-public class User extends AsyncTask<Void, Void, Void> {
+public class User {
     private String email, contact_no;
 
     private ArrayList<String> Contacts;
@@ -27,12 +25,8 @@ public class User extends AsyncTask<Void, Void, Void> {
     }
 
     public void registerUser() {
-        //Push user to database
+        //Push user to database without contacts
 
     }
 
-    @Override
-    protected Void doInBackground(Void... params) {
-        return null;
-    }
 }
