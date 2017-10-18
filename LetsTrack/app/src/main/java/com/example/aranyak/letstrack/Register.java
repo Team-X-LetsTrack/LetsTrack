@@ -107,7 +107,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                                     Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            new User(email, phone);
+                            //   new User(email, phone);
                             Toast.makeText(Register.this, "Registration Successful",
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
