@@ -64,6 +64,7 @@ public class Primary_User extends User {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Log.d(TAG, "Registration Successful");
+                    FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification();
                 } else {
                     Log.d(TAG, "Registration Failed");
                 }
@@ -72,6 +73,15 @@ public class Primary_User extends User {
 
     }
 
+    public void attempt_signin() {
+        mAuth.signInWithEmailAndPassword(Email_ID, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+            }
+        });
+
+    }
     public void addContact(Contact c) {
 
     }

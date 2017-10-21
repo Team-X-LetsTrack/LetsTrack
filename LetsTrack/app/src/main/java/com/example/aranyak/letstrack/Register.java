@@ -96,11 +96,12 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
         if (u != null) {
             ProgressDialog.dismiss();
+//            u.sendEmailVerification();
             Toast.makeText(Register.this, "Registration Successful",
                     Toast.LENGTH_SHORT).show();
             Log.d(TAG, "createUserWithEmail:onComplete:" + true);
 
-            u.sendEmailVerification();
+
             FirebaseAuth.getInstance().signOut();
 
         } else {
