@@ -65,6 +65,8 @@ public class Primary_User extends User {
                 if (task.isSuccessful()) {
                     Log.d(TAG, "Registration Successful");
                     FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification();
+                    PhoneVerification p = new PhoneVerification(Contact_Number);
+                    p.sendVerificationtext();
                 } else {
                     Log.d(TAG, "Registration Failed");
                 }
