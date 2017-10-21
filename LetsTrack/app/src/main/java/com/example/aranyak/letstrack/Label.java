@@ -6,6 +6,7 @@ package com.example.aranyak.letstrack;
 
 public class Label extends Location {
 
+
     private String Label_name;
 
     public double getLatitude() {
@@ -16,8 +17,9 @@ public class Label extends Location {
         return longitude;
     }
 
-    public Label(double latitude, double longitude, String label_name) {
-        super(latitude, longitude);
+    public void setLabel_name(String label_name) {
         Label_name = label_name;
     }
+
+
 }

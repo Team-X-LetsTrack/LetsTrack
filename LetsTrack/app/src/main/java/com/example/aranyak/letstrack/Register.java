@@ -2,7 +2,6 @@ package com.example.aranyak.letstrack;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,9 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -92,40 +88,28 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         ProgressDialog.show();
 
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+        Primary_User current_user = new Primary_User(email, phone, password);
 
-                        ProgressDialog.dismiss();
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(Register.this, "Registration Failed",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            //   new User(email, phone);
-                            Toast.makeText(Register.this, "Registration Successful",
-                                    Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        current_user.attempt_register();
 
-                            user.sendEmailVerification()
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Log.d(TAG, "Email sent.");
-                                            }
-                                        }
-                                    });
-                        }
+        FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
 
-                        // ...
-                    }
-                });
+        if (u != null) {
+            ProgressDialog.dismiss();
+            Toast.makeText(Register.this, "Registration Successful",
+                    Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "createUserWithEmail:onComplete:" + true);
+
+            u.sendEmailVerification();
+            FirebaseAuth.getInstance().signOut();
+
+        } else {
+            ProgressDialog.dismiss();
+            Toast.makeText(Register.this, "Registration unsuccessful",
+                    Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "createUserWithEmail:onComplete:" + false);
+        }
+
     }
 
     @Override

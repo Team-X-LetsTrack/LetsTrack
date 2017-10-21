@@ -5,6 +5,13 @@ package com.example.aranyak.letstrack;
  */
 
 public abstract class User {
-    private String Email_ID;
-    private String Contact_Number;
+    protected String Email_ID;
+    protected String Contact_Number;
+
+    public User(String email_ID, String contact_Number) {
+        Email_ID = email_ID;
+        Contact_Number = contact_Number;
+    }
+
+
 }
