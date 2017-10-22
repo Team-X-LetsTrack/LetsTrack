@@ -8,18 +8,28 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Aranyak on 19-Oct-17.
  */
 
-public class Primary_User extends User {
+public class Primary_User extends User implements Serializable {
 
     ArrayList<Contact> Contact_Array;
     ArrayList<Label> Label_Array;
     Label Current_Label;
     String Password;
+
+    boolean phone_verified;
+    PhoneVerification p;
+
+    public PhoneVerification getP() {
+        return p;
+    }
+
+
 
     private static String TAG;
 
@@ -28,7 +38,7 @@ public class Primary_User extends User {
     public Primary_User(String email_ID, String contact_Number, String password) {
         super(email_ID, contact_Number);
         Password = password;
-
+        p = new PhoneVerification(Contact_Number);
         Label_Array = new ArrayList<Label>();
         Label home = new Label();
         home.setLabel_name("Home");
@@ -65,7 +75,6 @@ public class Primary_User extends User {
                 if (task.isSuccessful()) {
                     Log.d(TAG, "Registration Successful");
                     FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification();
-                    PhoneVerification p = new PhoneVerification(Contact_Number);
                     p.sendVerificationtext();
                 } else {
                     Log.d(TAG, "Registration Failed");
@@ -75,14 +84,22 @@ public class Primary_User extends User {
 
     }
 
-    public void attempt_signin() {
-        mAuth.signInWithEmailAndPassword(Email_ID, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    public void attempt_signin(String email, String Password) {
+        mAuth.signInWithEmailAndPassword(email, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
             }
         });
 
+    }
+
+    public void verifyPhone(boolean b) {
+        phone_verified = b;
+    }
+
+    public boolean isPhone_verified() {
+        return phone_verified;
     }
     public void addContact(Contact c) {
 

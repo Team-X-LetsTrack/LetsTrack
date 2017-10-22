@@ -13,5 +13,11 @@ public abstract class User {
         Contact_Number = contact_Number;
     }
 
+    public String getEmail_ID() {
+        return Email_ID;
+    }
 
+    public String getContact_Number() {
+        return Contact_Number;
+    }
 }

@@ -70,16 +70,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ProgressDialog.setMessage("Signing In... ");
         ProgressDialog.show();
 
-        String contact = " ";
-        Primary_User user = new Primary_User(email, contact, password);
-
-        user.attempt_signin();
+        Intent signin = getIntent();
+        Primary_User us = (Primary_User) signin.getSerializableExtra("User");
+        if (us.getEmail_ID().equals(email)) {
+            us.attempt_signin(email, password);
+        } else {
+            /*Get rid of next two lines after database is set up and replace it with retrieving user information from database*/
+            String contact = " ";
+            Primary_User user = new Primary_User(email, contact, password);
+            us = user;
+            user.attempt_signin(email, password);
+        }
 
         FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
 
         if (u != null) {
             ProgressDialog.dismiss();
-            if (u.isEmailVerified()) {
+            if (u.isEmailVerified() && us.isPhone_verified()) {
                 Toast.makeText(this, "Sign-in successful!", Toast.LENGTH_SHORT).show();
                 //Start new activity
             } else

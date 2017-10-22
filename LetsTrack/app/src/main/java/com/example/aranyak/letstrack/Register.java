@@ -1,6 +1,9 @@
 package com.example.aranyak.letstrack;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -28,6 +31,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
     private FirebaseAuth mAuth;
 
+    Primary_User current_user;
+
+    private SharedPreferences shared_pref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +50,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         ProgressDialog=new ProgressDialog(this);
 
         mAuth = FirebaseAuth.getInstance();
+
+        shared_pref = getSharedPreferences("Current_User", MODE_PRIVATE);
 
         ButtonRegister.setOnClickListener(this);
     }
@@ -88,7 +97,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         ProgressDialog.show();
 
 
-        Primary_User current_user = new Primary_User(email, phone, password);
+        current_user = new Primary_User(email, phone, password);
 
         current_user.attempt_register();
 
@@ -96,14 +105,16 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
         if (u != null) {
             ProgressDialog.dismiss();
-//            u.sendEmailVerification();
+            u.sendEmailVerification();
+
+
             Toast.makeText(Register.this, "Registration Successful",
                     Toast.LENGTH_SHORT).show();
             Log.d(TAG, "createUserWithEmail:onComplete:" + true);
 
-
             FirebaseAuth.getInstance().signOut();
 
+            startActivity(new Intent(this, Verify_phone.class));
         } else {
             ProgressDialog.dismiss();
             Toast.makeText(Register.this, "Registration unsuccessful",
@@ -113,6 +124,20 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
     }
 
+    public void onPause() {
+
+        Editor edit = shared_pref.edit();
+        // Gson gson=new Gson();
+        // edit.putString("Current_User",gson.toJson(current_user));
+        edit.putString("Email", current_user.Email_ID);
+        edit.putString("Contact_No", current_user.Contact_Number);
+        edit.putString("Password", current_user.Password);
+        edit.putBoolean("Phone_verified", current_user.isPhone_verified());
+        edit.putString("Code", current_user.getP().getCode());
+
+        edit.commit();
+        super.onPause();
+    }
     @Override
     public void onClick(View v) {
         RegisterUser();

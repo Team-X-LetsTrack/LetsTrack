@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LetsTrack</string>
+    <string name="title_activity_verify_phone">verify_phone</string>
 </resources>
