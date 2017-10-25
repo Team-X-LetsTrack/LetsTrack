@@ -3,23 +3,34 @@ package com.example.aranyak.letstrack;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Verify_phone extends AppCompatActivity implements View.OnClickListener {
+public class Verify_phone extends AppCompatActivity implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     EditText editTextCode;
     Button buttonCodeSubmit;
 
     SharedPreferences saved_value;
+    SharedPreferences shared_pref;
 
+    Primary_User current_user;
+
+    static Verify_phone verify_phone;
+
+    public static Verify_phone getInstance() {
+        return verify_phone;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_phone);
+
+        verify_phone = this;
 
         editTextCode = (EditText) findViewById(R.id.editTextCode);
 
@@ -29,11 +40,11 @@ public class Verify_phone extends AppCompatActivity implements View.OnClickListe
 
         saved_value = getSharedPreferences("Current_User", MODE_PRIVATE);
 
+        Register.getInstance().finish();
 
     }
 
-    @Override
-    public void onClick(View v) {
+    public void verify_phone() {
         final String code = editTextCode.getText().toString().trim();
         if (code.isEmpty())
             Toast.makeText(this, "Enter code", Toast.LENGTH_SHORT);
@@ -46,9 +57,30 @@ public class Verify_phone extends AppCompatActivity implements View.OnClickListe
             p.setCode(c);
             current_user.verifyPhone(p.verifyCode(code));
 
-            startActivity(new Intent(this, MainActivity.class));
+            if (current_user.isPhone_verified()) {
+                Toast.makeText(this, "Phone Verified", Toast.LENGTH_SHORT);
+                startActivity(new Intent(this, Register.class));     //Change to main activity
+            } else
+                Toast.makeText(this, "Incorrect code", Toast.LENGTH_SHORT);
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        verify_phone();
+    }
+
+    @Override
+    public void onPause() {
+        SharedPreferences.Editor edit = saved_value.edit();
+        edit.putString("Email", current_user.Email_ID);
+        edit.putString("Contact_No", current_user.Contact_Number);
+        edit.putBoolean("Phone_verified", current_user.isPhone_verified());
+        edit.putBoolean("Phone_Verification", current_user.isPhone_verified());
+
+
+        edit.commit();
+        super.onPause();
+    }
 
 }

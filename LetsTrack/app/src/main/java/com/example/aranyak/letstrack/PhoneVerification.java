@@ -22,7 +22,9 @@ public class PhoneVerification {
         this.code = code;
     }
 
+
     public void sendVerificationtext() {
+
         Random rn = new Random();
         code = Integer.toString(100000 + rn.nextInt(100000));
         String message = "Your verification code is " + code + ".";

@@ -4,7 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -35,10 +39,14 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
     private SharedPreferences shared_pref;
 
+    static Register register;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        register = this;
 
         ButtonRegister=(Button) findViewById(R.id.buttonRegister);
 
@@ -56,11 +64,19 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         ButtonRegister.setOnClickListener(this);
     }
 
+    public static Register getInstance() {
+        return register;
+    }
+
     private void RegisterUser() {
+        requestSmsPermission();
         final String email = EditTextEmail.getText().toString().trim();
         final String password = EditTextPassword.getText().toString().trim();
         final String Confirmpassword = EditTextConfirmPassword.getText().toString().trim();
         final String phone = EditTextPhone.getText().toString().trim();
+
+        String edit_phone;
+
 
         if(TextUtils.isEmpty(email)) {
             //email field is empty
@@ -92,7 +108,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             return;
         }
 
-        
+        if (phone.charAt(0) != '+' || !(phone.startsWith("00")))
+            edit_phone = "00" + phone;
+        else
+            edit_phone = phone;
+
         ProgressDialog.setMessage("Registering...");
         ProgressDialog.show();
 
@@ -124,11 +144,46 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
     }
 
+    private void requestSmsPermission() {
+
+
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.SEND_SMS}, 1);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "permission granted", Toast.LENGTH_SHORT).show();
+
+
+            } else {
+                Toast.makeText(this, "permission not granted", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+
+    public void onStop() {
+        Editor edit = shared_pref.edit();
+        edit.putString("Email", current_user.Email_ID);
+        edit.putString("Contact_No", current_user.Contact_Number);
+        edit.putString("Password", current_user.Password);
+        edit.putBoolean("Phone_verified", current_user.isPhone_verified());
+        edit.putString("Code", current_user.getP().getCode());
+
+        edit.commit();
+
+        super.onStop();
+    }
     public void onPause() {
 
         Editor edit = shared_pref.edit();
-        // Gson gson=new Gson();
-        // edit.putString("Current_User",gson.toJson(current_user));
         edit.putString("Email", current_user.Email_ID);
         edit.putString("Contact_No", current_user.Contact_Number);
         edit.putString("Password", current_user.Password);
