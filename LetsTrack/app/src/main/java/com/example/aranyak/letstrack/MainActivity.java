@@ -49,8 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //       mAuth = FirebaseAuth.getInstance();
     }
 
-
-
     private void Signin()
     {
         String email=EditTextEmail.getText().toString().trim();

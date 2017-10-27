@@ -67,6 +67,7 @@ public class Primary_User extends User implements Serializable {
 
     }
 
+
     public void attempt_register() {
 
         mAuth.createUserWithEmailAndPassword(Email_ID, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

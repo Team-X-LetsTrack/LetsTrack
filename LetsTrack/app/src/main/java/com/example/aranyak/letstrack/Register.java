@@ -127,7 +127,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             ProgressDialog.dismiss();
             u.sendEmailVerification();
 
-
             Toast.makeText(Register.this, "Registration Successful",
                     Toast.LENGTH_SHORT).show();
             Log.d(TAG, "createUserWithEmail:onComplete:" + true);
