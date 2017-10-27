@@ -1,6 +1,7 @@
 package com.example.aranyak.letstrack;
 
 import android.telephony.SmsManager;
+import android.util.Log;
 
 import java.util.Random;
 
@@ -15,7 +16,11 @@ public class PhoneVerification {
     private String code;
 
     public PhoneVerification(String phone) {
+
         this.phone = phone;
+        Random rn = new Random();
+
+        code = Integer.toString(100000 + rn.nextInt(100000));
     }
 
     public void setCode(String code) {
@@ -25,9 +30,9 @@ public class PhoneVerification {
 
     public void sendVerificationtext() {
 
-        Random rn = new Random();
-        code = Integer.toString(100000 + rn.nextInt(100000));
+
         String message = "Your verification code is " + code + ".";
+        Log.d("", "The code generated is " + code);
         SmsManager sm = SmsManager.getDefault();
         sm.sendTextMessage(phone, null, message, null, null);
     }
@@ -38,7 +43,7 @@ public class PhoneVerification {
 
     public boolean verifyCode(String c) {
 
-        if (c == code)
+        if (c.equals(code))
             return true;
         else
             return false;
