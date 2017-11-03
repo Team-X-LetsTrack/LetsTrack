@@ -15,6 +15,10 @@ public class PhoneVerification {
 
     private String code;
 
+    public String getPhone() {
+        return phone;
+    }
+
     public PhoneVerification(String phone) {
 
         this.phone = phone;
