@@ -1,13 +1,12 @@
 package com.example.aranyak.letstrack;
 
 /**
- * Created by Aranyak on 19-Oct-17.
+ * Created by Aranyak on 03-Nov-17.
  */
 
-public class Account {
-    private String Email_ID;
-    private String Password;
-    private String Contact_Number;
+public interface Account {
 
+    void attempt_register();
 
+    void attempt_signin(String email, String pass);
 }

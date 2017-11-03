@@ -8,14 +8,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Aranyak on 19-Oct-17.
  */
 
-public class Primary_User extends User implements Serializable {
+public class Primary_User extends User implements Account {
 
     ArrayList<Contact> Contact_Array;
     ArrayList<Label> Label_Array;
