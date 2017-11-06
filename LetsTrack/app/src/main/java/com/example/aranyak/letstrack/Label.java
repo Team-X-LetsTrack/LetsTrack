@@ -1,25 +1,22 @@
 package com.example.aranyak.letstrack;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by Aranyak on 19-Oct-17.
  */
 
-public class Label extends Location {
+public class Label {
 
 
     private String Label_name;
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
+    private LatLng location;
 
     public void setLabel_name(String label_name) {
         Label_name = label_name;
     }
 
-
+    public void setLocation(LatLng location) {
+        this.location = location;
+    }
 }
