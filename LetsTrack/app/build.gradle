@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion '26.0.2'
     defaultConfig {
-        applicationId "com.example.aranyak.letstrack"
+        applicationId "com.example.aranyak.Application"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
@@ -21,6 +21,7 @@ android {
 
 dependencies {
     implementation 'com.google.android.gms:play-services-maps:11.4.2'
+    implementation 'com.google.android.gms:play-services-location:11.4.2'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -33,11 +34,4 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-
-
-
-
-
-
-
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'

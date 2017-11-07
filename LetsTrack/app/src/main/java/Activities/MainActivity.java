@@ -1,4 +1,4 @@
-package com.example.aranyak.letstrack;
+package Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aranyak.Application.Primary_User;
+import com.example.aranyak.Application.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

@@ -1,4 +1,4 @@
-package com.example.aranyak.letstrack;
+package Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.aranyak.Application.Primary_User;
+import com.example.aranyak.Application.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -170,9 +172,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
     public void onStop() {
         Editor edit = shared_pref.edit();
-        edit.putString("Email", current_user.Email_ID);
-        edit.putString("Contact_No", current_user.Contact_Number);
-        edit.putString("Password", current_user.Password);
+        edit.putString("Email", current_user.getEmail_ID());
+        edit.putString("Contact_No", current_user.getContact_Number());
+        edit.putString("Password", current_user.getPassword());
         edit.putBoolean("Phone_verified", current_user.isPhone_verified());
         edit.putString("Code", current_user.getP().getCode());
 
@@ -183,9 +185,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     public void onPause() {
 
         Editor edit = shared_pref.edit();
-        edit.putString("Email", current_user.Email_ID);
-        edit.putString("Contact_No", current_user.Contact_Number);
-        edit.putString("Password", current_user.Password);
+        edit.putString("Email", current_user.getEmail_ID());
+        edit.putString("Contact_No", current_user.getContact_Number());
+        edit.putString("Password", current_user.getPassword());
         edit.putBoolean("Phone_verified", current_user.isPhone_verified());
         edit.putString("Code", current_user.getP().getCode());
 

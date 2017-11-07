@@ -1,4 +1,4 @@
-package com.example.aranyak.letstrack;
+package com.example.aranyak.Application;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -23,12 +23,6 @@ public class Primary_User extends User implements Account {
 
     boolean phone_verified;
     PhoneVerification p;
-
-    public PhoneVerification getP() {
-        return p;
-    }
-
-
 
     private static String TAG;
 
@@ -101,9 +95,17 @@ public class Primary_User extends User implements Account {
     public boolean isPhone_verified() {
         return phone_verified;
     }
-    public void addContact(Contact c) {
 
+    public void addContact(Contact c) {
+        //TODO add logic to add contact
     }
 
+    public String getPassword() {
+        return Password;
+    }
+
+    public PhoneVerification getP() {
+        return p;
+    }
 
 }

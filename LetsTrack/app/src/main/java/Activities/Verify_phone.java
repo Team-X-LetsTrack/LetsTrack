@@ -1,4 +1,4 @@
-package com.example.aranyak.letstrack;
+package Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.aranyak.Application.PhoneVerification;
+import com.example.aranyak.Application.Primary_User;
+import com.example.aranyak.Application.R;
 
 public class Verify_phone extends AppCompatActivity implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -59,7 +63,7 @@ public class Verify_phone extends AppCompatActivity implements View.OnClickListe
 
             if (current_user.isPhone_verified()) {
                 Toast.makeText(this, "Phone Verified", Toast.LENGTH_SHORT);
-                startActivity(new Intent(this, Register.class));     //Change to main activity
+                startActivity(new Intent(this, MainActivity.class));     //Change to main activity
             } else
                 Toast.makeText(this, "Incorrect code", Toast.LENGTH_SHORT);
         }
@@ -73,11 +77,9 @@ public class Verify_phone extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onPause() {
         SharedPreferences.Editor edit = saved_value.edit();
-        edit.putString("Email", current_user.Email_ID);
-        edit.putString("Contact_No", current_user.Contact_Number);
+        edit.putString("Email", current_user.getEmail_ID());
+        edit.putString("Contact_No", current_user.getContact_Number());
         edit.putBoolean("Phone_verified", current_user.isPhone_verified());
-        edit.putBoolean("Phone_Verification", current_user.isPhone_verified());
-
 
         edit.commit();
         super.onPause();

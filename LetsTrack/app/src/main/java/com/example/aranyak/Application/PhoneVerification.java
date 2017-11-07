@@ -1,4 +1,4 @@
-package com.example.aranyak.letstrack;
+package com.example.aranyak.Application;
 
 import android.telephony.SmsManager;
 import android.util.Log;
