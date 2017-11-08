@@ -1,7 +1,9 @@
 package com.example.aranyak.Application;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -16,8 +18,17 @@ import java.util.ArrayList;
 
 public class Primary_User extends User implements Account {
 
+    public ArrayList<Contact> getContact_Array() {
+        return Contact_Array;
+    }
+
     ArrayList<Contact> Contact_Array;
     ArrayList<Label> Label_Array;
+
+    public Label getCurrent_Label() {
+        return Current_Label;
+    }
+
     Label Current_Label;
     String Password;
 
@@ -26,7 +37,7 @@ public class Primary_User extends User implements Account {
 
     private static String TAG;
 
-    private FirebaseAuth mAuth;
+    private static FirebaseAuth mAuth;
 
     public Primary_User(String email_ID, String contact_Number, String password) {
         super(email_ID, contact_Number);
@@ -60,6 +71,22 @@ public class Primary_User extends User implements Account {
 
     }
 
+    public ArrayList<Label> getLabel_Array() {
+        return Label_Array;
+    }
+
+    public static void ResetPassword(final Activity activity, String email) {
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful())
+                    Toast.makeText(activity, "Email for resetting password sent", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(activity, "Unable to send email", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public void attempt_register() {
 

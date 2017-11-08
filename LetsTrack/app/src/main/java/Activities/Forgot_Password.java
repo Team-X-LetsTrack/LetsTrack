@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.aranyak.Application.Primary_User;
 import com.example.aranyak.Application.R;
 
 public class Forgot_Password extends AppCompatActivity implements View.OnClickListener {
@@ -27,9 +28,12 @@ public class Forgot_Password extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        //Search database for email id
-        //Fetch password
-        //Sign into firebase using email and password
-        //send reset password email
+        resetPassword();
+    }
+
+    private void resetPassword() {
+        String email = EditTextEmail.getText().toString().trim();
+        Primary_User.ResetPassword(this, email);
+
     }
 }

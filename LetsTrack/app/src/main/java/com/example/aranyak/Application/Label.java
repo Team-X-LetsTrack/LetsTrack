@@ -9,6 +9,7 @@ import com.google.android.gms.maps.model.LatLng;
 public class Label {
 
 
+
     private String Label_name;
     private LatLng location;
 
@@ -19,4 +20,13 @@ public class Label {
     public void setLocation(LatLng location) {
         this.location = location;
     }
+
+    public String getLabel_name() {
+        return Label_name;
+    }
+
+    public LatLng getLocation() {
+        return location;
+    }
+
 }

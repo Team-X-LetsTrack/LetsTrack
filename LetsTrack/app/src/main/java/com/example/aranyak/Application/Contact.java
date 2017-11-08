@@ -8,6 +8,11 @@ public class Contact extends User {
 
     private String Current_Label;
     private String userName;
+
+    public Status getContact_status() {
+        return Contact_status;
+    }
+
     private Status Contact_status;
 
     public Contact(String email_ID, String contact_Number, String userName) {
